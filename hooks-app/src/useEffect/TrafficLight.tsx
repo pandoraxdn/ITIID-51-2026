@@ -1,123 +1,107 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
+
+const colors = {
+  red: 'bg-red-500 animate-pulse',
+  yellow: 'bg-yellow-500 animate-pulse',
+  green: 'bg-green-500 animate-pulse',
+};
+
+type TrafficLightColor = keyof typeof colors;
 
 export const TrafficLight = () => {
+  const [ date, setDate ] = useState<Date>(new Date);
+  const [light, setLight] = useState<TrafficLightColor>('red');
+  const [countdown, setCountdown] = useState(5);
 
-    const [ countDown, setCountDown ] = useState<number>(10);
-    const [ fecha, setFecha ] = useState<Date>(new Date);
+  useEffect(() => {
+    if (countdown === 0) return;
 
-    useEffect( () => {
-        const intervalHora = setInterval(() => {
-            setFecha( new Date );
-        },1000);
+    const intervalId = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+      setDate( new Date );
+      //console.log( countdown );
+    }, 1000);
 
-        return () => {
-            clearInterval(intervalHora);
-        }
-    },[ fecha ]);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [countdown]);
 
-    const colors = {
-        yellow: "bg-yellow-500 animate-pulse",
-        green: "bg-green-500 animate-pulse",
-        red: "bg-red-500 animate-pulse",
+  useEffect(() => {
+    if (countdown > 0) return;
+
+    setCountdown(5);
+
+    if (light === 'red') {
+      setLight('green');
+      return;
     }
 
-    //type TrafficLight = "red" | "yellow" | "green";
-    type TrafficLight = keyof typeof colors;
+    if (light === 'yellow') {
+      setLight('red');
+      return;
+    }
 
-    const [ light, setLight ] = useState<TrafficLight>("red");
+    if (light === 'green') {
+      setLight('yellow');
+      return;
+    }
+  }, [countdown, light]);
 
   return (
-    <div
-        className="
-            min-h-screen
-            bg-gradient-to-br
-            from-slate-900
-            via-gray-900
-            to-slate-800
-            flex
-            items-center
-            justify-center
-            p-4
-        "
-    >
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center p-4">
+      <div className="flex flex-col items-center space-y-8">
+        <h1 className="text-white text-3xl font-thin">
+          Semáforo con useEffect
+        </h1>
+
+        <h2 className="text-white text-2xl font-thin">
+          Hora: { date.toLocaleTimeString() }
+        </h2>
+
+        <h2 className="text-white text-2xl font-thin">
+          Counter: { countdown }
+        </h2>
+
         <div
-            className="
-                flex
-                flex-col
-                items-center
-                space-y-8
-            "
+          className="
+            w-64
+            bg-gray-500
+            rounded-full
+            h-2
+          "
         >
-            <h1
-                style={{ fontSize: 30 }}
-                >
-                { fecha.toLocaleTimeString() }
-            </h1>
-            <div
-                className={
-                        `w-32 h-32 ${ (light === 'red') ? colors["red"] : 'bg-gray-500' } rounded-full`
-                }
-            >
-            </div>
-            <div
-                className={
-                    `w-32 h-32 ${ (light === 'yellow') ? colors["yellow"] : 'bg-gray-500' } rounded-full`
-                }
-            >
-            </div>
-            <div
-                className={
-                    `w-32 h-32 ${ (light === 'green') ? colors["green"] : 'bg-gray-500' } rounded-full`
-                }
-            >
-            </div>
-            <div
-                className="
-                    flex
-                    gap-2
-                "
-            >
-                <button
-                    className="
-                        bg-red-500
-                        text-white
-                        px-4
-                        py-2
-                        rounded-md
-                        cursor-pointer
-                        "
-                        onClick={ () => setLight("red") }
-                >
-                    Rojo
-                </button> 
-                <button
-                    className="
-                        bg-yellow-500
-                        text-white
-                        px-4
-                        py-2
-                        rounded-md
-                        cursor-pointer
-                    "
-                    onClick={ () => setLight("yellow") }
-                >
-                    Amarillo
-                </button> 
-                <button
-                    className="
-                        bg-green-500
-                        text-white
-                        px-4
-                        py-2
-                        rounded-md
-                        cursor-pointer
-                    "
-                    onClick={ () => setLight("green") }
-                >
-                    Verde
-                </button> 
-            </div>
+          <div
+            style={{ width: `${(countdown/5) * 100}%` }}
+            className="
+              bg-blue-500
+              rounded-full
+              h-2
+              transition-all
+              duration-1000
+              ease-linear
+            "
+          >
+          </div>
         </div>
+
+        <div
+          className={`w-32 h-32 ${
+            light === 'red' ? colors[light] : 'bg-gray-500'
+          } rounded-full`}
+        ></div>
+
+        <div
+          className={`w-32 h-32 ${
+            light === 'yellow' ? colors[light] : 'bg-gray-500'
+          } rounded-full`}
+        ></div>
+        <div
+          className={`w-32 h-32 ${
+            light === 'green' ? colors[light] : 'bg-gray-500'
+          } rounded-full`}
+        ></div>
+      </div>
     </div>
   );
 };
