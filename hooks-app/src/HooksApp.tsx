@@ -3,12 +3,14 @@
 //import { TrafficLight } from "./useEffect/TrafficLight";
 //import { TrafficLight } from "./useEffect/TrafficLight";
 //import { PokemonPage } from "./examples/PokemonPage";
+import { TaskApp } from "./useReducer/TaskApp";
 
 const HooksApp = () => {
   return (
     <div
         className="bg-gradient"
     >
+      <TaskApp />
         {/*
         <PokemonPage/>
         <Container>
