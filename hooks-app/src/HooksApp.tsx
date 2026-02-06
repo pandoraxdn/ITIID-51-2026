@@ -3,22 +3,30 @@
 //import { TrafficLight } from "./useEffect/TrafficLight";
 //import { TrafficLight } from "./useEffect/TrafficLight";
 //import { PokemonPage } from "./examples/PokemonPage";
-import { TaskApp } from "./useReducer/TaskApp";
+//import { TaskApp } from "./useReducer/TaskApp";
+import {Toaster} from "sonner";
+import {RouterProvider} from "react-router";
+import {appRouter} from "./useContext/router/app.router";
+import {UserContextProvider} from "./useContext/context/UserContext";
 
 const HooksApp = () => {
   return (
-    <div
+    <UserContextProvider>
+      <div
         className="bg-gradient"
-    >
-      <TaskApp />
+      >
+        <Toaster />
+        <RouterProvider router={appRouter} />
         {/*
+        <TaskApp />
         <PokemonPage/>
         <Container>
             <CustomForm/>
         </Container>
         <TrafficLight/>
         */}
-    </div>
+      </div>
+    </UserContextProvider>
   );
 };
 
