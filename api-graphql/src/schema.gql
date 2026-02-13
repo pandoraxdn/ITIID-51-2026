@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id_todo: ID!
+  description: String!
+  done: Boolean
+}
+
 type Query {
   """Hola mundo es lo que retorna"""
   hello: String!
@@ -11,4 +17,23 @@ type Query {
 
   """Retorna un número entre 0 y el argumento"""
   randomFromZero(to: Int): Int!
+  todos: [Todo!]!
+  findOne(id_todo: String!): Todo!
+}
+
+type Mutation {
+  createTodo(data: CreateTodoInput!): Todo!
+  updateTodo(data: UpdateTodoInput!): Todo!
+  removeTodo(id_todo: String!): Todo!
+}
+
+input CreateTodoInput {
+  description: String!
+  done: Boolean
+}
+
+input UpdateTodoInput {
+  description: String
+  done: Boolean
+  id_todo: ID!
 }

@@ -5,6 +5,8 @@ import {AppService} from './app.service';
 import {ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
 import {HelloWorldModule} from './hello-world/hello-world.module';
 import {join} from 'path';
+import {TodoModule} from './todo/todo.module';
+import {TypeOrmModule} from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -13,7 +15,18 @@ import {join} from 'path';
       //playground: false
       autoSchemaFile: join(process.cwd(), 'src/schema.gql')
     }),
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: "localhost",
+      port: 5432,
+      database: "dsm51",
+      username: "najimi",
+      password: "pass",
+      synchronize: true,
+      autoLoadEntities: true
+    }),
     HelloWorldModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
