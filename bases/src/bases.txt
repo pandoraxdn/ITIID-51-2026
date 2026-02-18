@@ -1,0 +1,31 @@
+// Variables y Constantes
+//const nombre:string = "Ivan";
+//let edad: number = 19;
+//console.log(nombre, typeof( nombre ));
+//console.log(edad, typeof edad);
+
+//let data: string | number = "Alejandra";
+//data = 21;
+//console.log(data);
+
+//const verdadero: boolean = false;
+
+//const arr: [number] = [1,2,3,4];
+//const arr2: [string] = ["a","b","c","d"];
+//const data: [number,string,boolean] = [1,"Pablito",true];
+//const arr3 = [...arr];
+
+//interface Persona {
+    //id_persona: number;
+    //nombre: string;
+    //ap: string;
+    //am: string;
+//}
+
+//const persona:Persona = {
+    //id_persona: 1,
+    //nombre: "Valeria",
+    //ap: "Peña",
+    //am: "Romero"
+//}
+//const { id_persona, nombre, ap, am } = persona;
