@@ -4,8 +4,8 @@ import {GraduationCap, Users, BookOpen, UserCheck, ClipboardList, Award, Moon, S
 import {useTheme} from "next-themes";
 import {Button} from "@/components/ui/button";
 import pandoraImg from "@/assets/pandora.png";
-import {useSchoolStore} from "../hooks/useSchoolStorage";
-import {ParticlesBackground} from './ParticlesBackground';
+import {useSchoolStore} from "../hooks/useSchoolStore";
+import {ParticlesBackground} from "./ParticlesBackground";
 
 const SchoolContext = createContext<ReturnType<typeof useSchoolStore> | null>(null);
 
@@ -45,7 +45,7 @@ export function Layout({children}: {children: ReactNode}) {
           </div>
           <nav className="flex-1 p-3 space-y-0.5">
             {navItems.map(({to, icon: Icon, label}) => {
-              const active = to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
+              const active = to === "/dashboard" ? location.pathname === "/dashboard" : location.pathname.startsWith(to);
               return (
                 <Link
                   key={to}

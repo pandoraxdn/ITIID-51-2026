@@ -15,7 +15,7 @@ const CHART_COLORS = [
   "hsl(38, 92%, 50%)",
 ];
 
-export function DashboardIndex() {
+export const DashboardIndex = () => {
   const {alumnos, materias, profesores, inscripciones, calificaciones, getAlumnoName, getMateriaName} = useSchool();
 
   const alumnosActivos = alumnos.filter(a => a.estatus === "activo").length;
@@ -26,15 +26,48 @@ export function DashboardIndex() {
   const reprobados = calificaciones.filter(c => c.estatus === "reprobado").length;
 
   const stats = [
-    {label: "Alumnos Activos", value: alumnosActivos, icon: Users, to: "/alumnos", color: "text-primary"},
-    {label: "Materias", value: materias.length, icon: BookOpen, to: "/materias", color: "text-gold-light"},
-    {label: "Profesores", value: profesores.filter(p => p.estatus === "activo").length, icon: UserCheck, to: "/profesores", color: "text-silver"},
-    {label: "Inscripciones", value: inscripciones.filter(i => i.estatus === "inscrito").length, icon: ClipboardList, to: "/inscripciones", color: "text-warning"},
-    {label: "Aprobados", value: aprobados, icon: Award, to: "/calificaciones", color: "text-success"},
-    {label: "Reprobados", value: reprobados, icon: Award, to: "/calificaciones", color: "text-destructive"},
+    {
+      label: "Alumnos Activos",
+      value: alumnosActivos,
+      icon: Users,
+      to: "/dashboard/alumnos",
+      color: "text-primary"
+    },
+    {
+      label: "Materias",
+      value: materias.length,
+      icon: BookOpen,
+      to: "/dashboard/materias",
+      color: "text-gold-light"
+    },
+    {
+      label: "Profesores",
+      value: profesores.filter(p => p.estatus === "activo").length,
+      icon: UserCheck,
+      to: "/dashboard/profesores",
+      color: "text-silver"
+    },
+    {
+      label: "Inscripciones",
+      value: inscripciones.filter(i => i.estatus === "inscrito").length,
+      icon: ClipboardList, to: "/dashboard/inscripciones",
+      color: "text-warning"
+    },
+    {
+      label: "Aprobados",
+      value: aprobados,
+      icon: Award,
+      to: "/dashboard/calificaciones",
+      color: "text-success"
+    },
+    {
+      label: "Reprobados",
+      value: reprobados,
+      icon: Award, to: "/dashboard/calificaciones",
+      color: "text-destructive"
+    },
   ];
 
-  // Data for pie chart (student status)
   const pieData = [
     {name: "Activos", value: alumnosActivos},
     {name: "Baja", value: alumnosBaja},
@@ -67,9 +100,22 @@ export function DashboardIndex() {
   return (
     <div className="p-6 md:p-8 space-y-6">
       {/* Hero */}
-      <div className="relative rounded-xl border border-border bg-card overflow-hidden animate-fade-in">
+      <div className="relative rounded-xl border border-border bg-card overflow-hidden animate-fade-in opacity-80">
         <div className="absolute inset-0 bg-gradient-to-r from-card via-card/95 to-transparent z-10" />
-        <img src={pandoraImg} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-72 object-contain opacity-10 pointer-events-none select-none" />
+        <img
+          src={pandoraImg}
+          alt="Pandora"
+          className="
+            absolute 
+            right-0 
+            top-1/2 
+            -translate-y-1/2 
+            h-72 
+            object-contain 
+            pointer-events-none 
+            select-none
+          "
+        />
         <div className="relative z-20 p-8">
           <div className="flex items-center gap-2 mb-3">
             <div className="h-1 w-8 rounded-full bg-primary" />
@@ -92,7 +138,7 @@ export function DashboardIndex() {
             </div>
           </div>
           <Link
-            to="/alumnos"
+            to="/dashboard/alumnos"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary/20 glow-gold"
           >
             Ver Alumnos <ArrowRight className="h-4 w-4" />
