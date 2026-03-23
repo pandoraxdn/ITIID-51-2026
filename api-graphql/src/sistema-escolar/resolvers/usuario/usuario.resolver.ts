@@ -13,6 +13,11 @@ export class UsuarioResolver {
     return this.service.findAll();
   }
 
+  @Query(() => Usuario, {name: 'login'})
+  login(@Args('input') input: UpdateUsuarioInput) {
+    return this.service.login(input);
+  }
+
   @Query(() => [Usuario], {name: 'usuariosP'})
   findAllPaginate(
     @Args('page', {type: () => Int, nullable: true, defaultValue: 1}) page: number,
